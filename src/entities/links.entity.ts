@@ -1,5 +1,13 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity("links")
 export class Link {
@@ -12,6 +20,13 @@ export class Link {
   @Column()
   url: string;
 
-  @ManyToMany(() => User, (user) => user.links)
-  users: User[];
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ManyToOne(() => User, (user) => user.links)
+  @JoinColumn({ name: "user_id" })
+  user: User;
 }

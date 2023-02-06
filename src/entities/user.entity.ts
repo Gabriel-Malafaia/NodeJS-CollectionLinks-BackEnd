@@ -1,14 +1,14 @@
+import { Link } from "./links.entity";
 import { getRounds, hashSync } from "bcryptjs";
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
+  CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Link } from "./links.entity";
 
 @Entity("users")
 export class User {
@@ -24,9 +24,11 @@ export class User {
   @Column({ length: 65 })
   password: string;
 
-  @ManyToMany(() => Link, (link) => link.users)
-  @JoinTable()
+  @OneToMany(() => Link, (link) => link.user, { onDelete: "CASCADE" })
   links: Link[];
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @BeforeUpdate()
   @BeforeInsert()

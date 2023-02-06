@@ -1,15 +1,17 @@
 import "reflect-metadata";
 import "express-async-errors";
 import express from "express";
-import usersRoutes from "./routes/user.routes";
+import usersRoutes from "./routes/users.routes";
+import linksRouter from "./routes/links.routes";
+import sessionRoutes from "./routes/sessions.routes";
 import { errorHandler } from "./errors";
-import linksRouter from "./routes/link.routes";
 
 const app = express();
 app.use(express.json());
 
 app.use("/users", usersRoutes);
 app.use("/links", linksRouter);
+app.use("/session", sessionRoutes);
 
 app.use(errorHandler);
 

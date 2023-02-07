@@ -1,4 +1,9 @@
+import { JwtPayload } from "jsonwebtoken";
 import { Link } from "../entities/links.entity";
+
+export interface IJwtPayload extends JwtPayload {
+  id: string;
+}
 
 export interface IUserRequest {
   name: string;

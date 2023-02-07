@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { IUserRequest } from "../interfaces/users.interfaces";
+import { IUserDb, IUserRequest } from "../interfaces/users.interfaces";
 import createUserService from "../services/users/createUser.service";
+import getUserService from "../services/users/getUser.service";
 
 const createUserController = async (req: Request, res: Response) => {
   const userData = req.validatedBody as IUserRequest;
@@ -9,7 +10,10 @@ const createUserController = async (req: Request, res: Response) => {
 };
 
 const getUserController = async (req: Request, res: Response) => {
-  return res.status(200).json({ hello: "oi" });
+  const userDB = req.validatedUser as IUserDb;
+  const data = await getUserService(userDB);
+
+  return res.status(200).json(data);
 };
 
 export { createUserController, getUserController };

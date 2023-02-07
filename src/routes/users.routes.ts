@@ -6,6 +6,7 @@ import {
   createUserController,
   getUserController,
 } from "../controllers/users.controllers";
+import isUserMiddleware from "../middlewares/users/isUser.middleware";
 
 const usersRoutes = Router();
 
@@ -16,6 +17,6 @@ usersRoutes.post(
   createUserController
 );
 
-usersRoutes.get("", getUserController);
+usersRoutes.get("", isUserMiddleware, getUserController);
 
 export default usersRoutes;

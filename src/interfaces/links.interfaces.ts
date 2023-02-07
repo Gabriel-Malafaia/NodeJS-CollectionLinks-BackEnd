@@ -3,6 +3,11 @@ export interface ICreateLinks {
   url: string;
 }
 
+export interface IEditLinks {
+  title?: string;
+  url?: string;
+}
+
 export interface IShowLinks {
   id: string;
   title: string;

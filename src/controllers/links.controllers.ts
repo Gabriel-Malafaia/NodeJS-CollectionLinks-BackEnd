@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ICreateLinks } from "../interfaces/links.interfaces";
+import { ICreateLinks, IEditLinks } from "../interfaces/links.interfaces";
 import { IUser, IUserDb } from "../interfaces/users.interfaces";
 import createLinksService from "../services/links/createLinks.service";
 import deleteLinksService from "../services/links/deleteLinks.service";
@@ -10,7 +10,7 @@ const createLinksController = async (req: Request, res: Response) => {
   const userData = req.validatedBody as ICreateLinks;
   const userProfile = req.validatedUser as IUserDb;
   const data = await createLinksService(userData, userProfile);
-  return res.status(200).json(data);
+  return res.status(201).json(data);
 };
 
 const getLinksController = async (req: Request, res: Response) => {
@@ -19,13 +19,16 @@ const getLinksController = async (req: Request, res: Response) => {
 };
 
 const editLinksController = async (req: Request, res: Response) => {
-  const data = await editLinksService("");
+  const userData = req.validatedBody as IEditLinks;
+  const { link_id } = req.params;
+  const data = await editLinksService(userData, link_id);
   return res.status(200).json(data);
 };
 
 const deleteLinksController = async (req: Request, res: Response) => {
-  const data = await deleteLinksService();
-  return res.status(200).json(data);
+  const { link_id } = req.params;
+  const data = await deleteLinksService(link_id);
+  return res.status(204).json(data);
 };
 
 export {

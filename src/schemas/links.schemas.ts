@@ -1,10 +1,19 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { ICreateLinks, IShowLinks } from "../interfaces/links.interfaces";
+import {
+  ICreateLinks,
+  IEditLinks,
+  IShowLinks,
+} from "../interfaces/links.interfaces";
 
 const createLinksSchema: SchemaOf<ICreateLinks> = yup.object().shape({
   title: yup.string().max(32),
   url: yup.string(),
+});
+
+const editLinksSchema: SchemaOf<IEditLinks> = yup.object().shape({
+  title: yup.string().max(32).notRequired(),
+  url: yup.string().notRequired(),
 });
 
 const showLinksSchema: SchemaOf<IShowLinks> = yup.object().shape({
@@ -15,4 +24,4 @@ const showLinksSchema: SchemaOf<IShowLinks> = yup.object().shape({
   id: yup.string(),
 });
 
-export { createLinksSchema, showLinksSchema };
+export { createLinksSchema, showLinksSchema, editLinksSchema };

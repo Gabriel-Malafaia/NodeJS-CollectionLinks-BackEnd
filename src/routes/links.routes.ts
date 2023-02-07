@@ -2,27 +2,45 @@ import { Router } from "express";
 import {
   createLinksController,
   deleteLinksController,
+  editLinksController,
   getLinksController,
 } from "../controllers/links.controllers";
 import validateSchemaMiddleware from "../middlewares/global/validateSchema";
 import isAlreadyUrlMiddleware from "../middlewares/links/alreadyUrl.middleware";
+import isOwnerLinkMiddleware from "../middlewares/links/isOwnerLink.middleware";
 import isUrlMiddleware from "../middlewares/links/isUrl.middleware";
+import isValidUuidMiddleware from "../middlewares/links/isValidUuid.middleware";
 import isUserMiddleware from "../middlewares/users/isUser.middleware";
-import { createLinksSchema } from "../schemas/links.schemas";
+import { createLinksSchema, editLinksSchema } from "../schemas/links.schemas";
 
 const linksRouter = Router();
 
 linksRouter.post(
   "",
   validateSchemaMiddleware(createLinksSchema),
-  isUrlMiddleware,
   isUserMiddleware,
+  isUrlMiddleware,
   isAlreadyUrlMiddleware,
   createLinksController
 );
 
 linksRouter.get("", isUserMiddleware, getLinksController);
-linksRouter.patch("/:link_id")
-linksRouter.delete("/:link_id", deleteLinksController)
+
+linksRouter.patch(
+  "/:link_id",
+  validateSchemaMiddleware(editLinksSchema),
+  isUserMiddleware,
+  isValidUuidMiddleware,
+  isOwnerLinkMiddleware,
+  editLinksController
+);
+
+linksRouter.delete(
+  "/:link_id",
+  isUserMiddleware,
+  isValidUuidMiddleware,
+  isOwnerLinkMiddleware,
+  deleteLinksController
+);
 
 export default linksRouter;

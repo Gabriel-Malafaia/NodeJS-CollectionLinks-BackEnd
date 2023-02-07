@@ -18,8 +18,11 @@ const isUserMiddleware = async (
     throw new AppError("Missing authorization.", 401);
   }
 
-  const userRepo = AppDataSource.getRepository(User);
-  const findUser = await userRepo.findOneBy({ id: decoding.id });
+  const findUser = await AppDataSource.getRepository(User)
+    .createQueryBuilder("user")
+    .leftJoinAndSelect("user.links", "links")
+    .where("user.id = :id", { id: decoding.id })
+    .getOne();
 
   if (!findUser) {
     throw new AppError("Missing authorization.", 401);

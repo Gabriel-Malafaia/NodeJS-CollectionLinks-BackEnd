@@ -25,7 +25,7 @@ const loginUserService = async (payload: IUserLogin, payloadDB: IUserDb) => {
   const response = await showUserSchema.validate(payloadDB, {
     stripUnknown: true,
   });
-  
+
   return { user: response, token };
 };
 

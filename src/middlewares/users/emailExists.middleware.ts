@@ -10,8 +10,12 @@ const emailExistsMiddleware = async (
 ) => {
   const { email } = req.body;
   const { originalUrl: path } = req;
-  const requestDatabase = AppDataSource.getRepository(User);
-  const emailExists = await requestDatabase.findOneBy({ email });
+
+  const emailExists = await AppDataSource.getRepository(User)
+    .createQueryBuilder("user")
+    .leftJoinAndSelect("user.links", "links")
+    .where("user.email = :email", { email })
+    .getOne();
 
   if (emailExists && path == "/users") {
     throw new AppError("User already registered.", 409);

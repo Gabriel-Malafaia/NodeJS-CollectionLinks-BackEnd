@@ -17,8 +17,8 @@ const emailExistsMiddleware = async (
     throw new AppError("User already registered.", 409);
   }
 
-  if (!emailExists && path == "/login") {
-    throw new AppError("Email or password is invalid.", 409);
+  if (!emailExists && path == "/session") {
+    throw new AppError("Email or password is invalid.", 401);
   }
 
   req.validatedUser = emailExists;

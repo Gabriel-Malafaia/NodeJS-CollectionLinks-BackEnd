@@ -20,3 +20,11 @@ export interface IShowUser {
   name: string;
   email: string;
 }
+
+export interface IUserDb {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+}

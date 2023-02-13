@@ -12,6 +12,7 @@ import {
   editLinksController,
   favoriteLinkController,
   getLinksController,
+  unfavoriteLinkController,
 } from "../controllers/links.controllers";
 
 const linksRouter = Router();
@@ -36,6 +37,14 @@ linksRouter.patch(
   editLinksController
 );
 
+linksRouter.delete(
+  "/:link_id",
+  isUserMiddleware,
+  isValidUuidMiddleware,
+  isOwnerLinkMiddleware,
+  deleteLinksController
+);
+
 linksRouter.post(
   "/:link_id/favorite",
   isUserMiddleware,
@@ -45,11 +54,10 @@ linksRouter.post(
 );
 
 linksRouter.delete(
-  "/:link_id",
+  "/:link_id/unfavorite",
   isUserMiddleware,
   isValidUuidMiddleware,
   isOwnerLinkMiddleware,
-  deleteLinksController
+  unfavoriteLinkController
 );
-
 export default linksRouter;

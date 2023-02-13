@@ -6,6 +6,7 @@ import deleteLinksService from "../services/links/deleteLinks.service";
 import editLinksService from "../services/links/editLinks.service";
 import favoriteLinkService from "../services/links/favoriteLink.service";
 import getLinksService from "../services/links/getLinks.service";
+import unfavoriteLinkService from "../services/links/unfavoriteLinkService.service";
 
 const createLinksController = async (req: Request, res: Response) => {
   const userData = req.validatedBody as ICreateLinks;
@@ -26,15 +27,21 @@ const editLinksController = async (req: Request, res: Response) => {
   return res.status(200).json(data);
 };
 
+const deleteLinksController = async (req: Request, res: Response) => {
+  const { link_id } = req.params;
+  const data = await deleteLinksService(link_id);
+  return res.status(204).json(data);
+};
+
 const favoriteLinkController = async (req: Request, res: Response) => {
   const { link_id } = req.params;
   const data = await favoriteLinkService(link_id);
   return res.status(200).json(data);
 };
 
-const deleteLinksController = async (req: Request, res: Response) => {
+const unfavoriteLinkController = async (req: Request, res: Response) => {
   const { link_id } = req.params;
-  const data = await deleteLinksService(link_id);
+  const data = await unfavoriteLinkService(link_id);
   return res.status(204).json(data);
 };
 
@@ -43,5 +50,6 @@ export {
   getLinksController,
   editLinksController,
   deleteLinksController,
-  favoriteLinkController
+  favoriteLinkController,
+  unfavoriteLinkController,
 };

@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { ICreateLinks, IEditLinks } from "../interfaces/links.interfaces";
-import { IUser, IUserDb } from "../interfaces/users.interfaces";
+import { IUserDb } from "../interfaces/users.interfaces";
 import createLinksService from "../services/links/createLinks.service";
 import deleteLinksService from "../services/links/deleteLinks.service";
 import editLinksService from "../services/links/editLinks.service";
+import favoriteLinkService from "../services/links/favoriteLink.service";
 import getLinksService from "../services/links/getLinks.service";
 
 const createLinksController = async (req: Request, res: Response) => {
@@ -25,6 +26,12 @@ const editLinksController = async (req: Request, res: Response) => {
   return res.status(200).json(data);
 };
 
+const favoriteLinkController = async (req: Request, res: Response) => {
+  const { link_id } = req.params;
+  const data = await favoriteLinkService(link_id);
+  return res.status(200).json(data);
+};
+
 const deleteLinksController = async (req: Request, res: Response) => {
   const { link_id } = req.params;
   const data = await deleteLinksService(link_id);
@@ -36,4 +43,5 @@ export {
   getLinksController,
   editLinksController,
   deleteLinksController,
+  favoriteLinkController
 };

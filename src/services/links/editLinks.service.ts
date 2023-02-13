@@ -5,7 +5,7 @@ import { AppError } from "../../errors";
 import { IEditLinks } from "../../interfaces/links.interfaces";
 
 const editLinksService = async (payload: IEditLinks, id: string) => {
-  if (!payload.title && !payload.url) {
+  if (Object.keys(payload).length == 0) {
     throw new AppError(
       "The body is empty or there are only unrequested elements."
     );

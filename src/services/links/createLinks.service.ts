@@ -6,6 +6,7 @@ import { showLinksSchema } from "../../schemas/links.schemas";
 
 const createLinksService = async (payload: ICreateLinks, user: IUserDb) => {
   const linkRepo = AppDataSource.getRepository(Link);
+
   const newLink = linkRepo.create({ ...payload, user });
   await linkRepo.save(newLink);
 

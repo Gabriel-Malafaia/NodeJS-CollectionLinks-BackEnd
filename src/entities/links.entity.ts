@@ -5,9 +5,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { FavoriteLinks } from "./favorite_links.entity";
 
 @Entity("links")
 export class Link {
@@ -18,7 +20,16 @@ export class Link {
   title: string;
 
   @Column()
+  description: string;
+
+  @Column()
   url: string;
+
+  @Column({ nullable: true, default: false })
+  favorite: boolean;
+
+  @OneToMany(() => FavoriteLinks, (favorite) => favorite.link)
+  mainTopics: FavoriteLinks[];
 
   @CreateDateColumn()
   createdAt: Date;

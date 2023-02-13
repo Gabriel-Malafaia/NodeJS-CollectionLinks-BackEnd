@@ -14,6 +14,7 @@ const emailExistsMiddleware = async (
   const emailExists = await AppDataSource.getRepository(User)
     .createQueryBuilder("user")
     .leftJoinAndSelect("user.links", "links")
+    .leftJoinAndSelect("links.mainTopics", "favorite")
     .where("user.email = :email", { email })
     .getOne();
 

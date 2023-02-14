@@ -19,7 +19,7 @@ export class Link {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()

@@ -21,6 +21,7 @@ const isUserMiddleware = async (
   const findUser = await AppDataSource.getRepository(User)
     .createQueryBuilder("user")
     .leftJoinAndSelect("user.links", "links")
+    .leftJoinAndSelect("links.mainTopics", "articles")
     .where("user.id = :id", { id: decoding.id })
     .getOne();
 

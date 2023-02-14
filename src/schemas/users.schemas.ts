@@ -9,7 +9,6 @@ const createUserSchema: SchemaOf<IUserRequest> = yup.object().shape({
 });
 
 const showUserSchema: SchemaOf<IShowUser> = yup.object().shape({
-  favorite_links: yup.array(),
   links: yup.array(),
   createdAt: yup.string(),
   email: yup.string(),

@@ -1,5 +1,6 @@
 import { User } from "./user.entity";
 import {
+  BeforeRemove,
   Column,
   CreateDateColumn,
   Entity,

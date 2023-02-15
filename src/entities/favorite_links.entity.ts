@@ -1,11 +1,9 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { Link } from "./links.entity";
 
@@ -20,7 +18,9 @@ export class FavoriteLinks {
   @Column()
   url: string;
 
-  @ManyToOne(() => Link, (link) => link.mainTopics)
+  @ManyToOne(() => Link, (link) => link.mainTopics, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "link_id" })
   link: Link;
 }

@@ -21,25 +21,24 @@ const favoriteLinkService = async (id: string) => {
     throw new AppError("Link is already in your favorite links.", 409);
   }
 
-  if (!articles) {
-    throw new AppError("Articles not found in our scraping system.", 404);
+  if (articles) {
+    const favorites: any = await Promise.all(
+      articles.map(async (elem) => {
+        const favoriteLink: ICreateFavorite = elem;
+        const newFavorite = favoriteRepo.create({
+          ...favoriteLink,
+          link: { ...link },
+        });
+        await favoriteRepo.save(newFavorite);
+
+        return newFavorite;
+      })
+    );
+
+    link.mainTopics = favorites;
   }
 
-  const favorites: any = await Promise.all(
-    articles.map(async (elem) => {
-      const favoriteLink: ICreateFavorite = elem;
-      const newFavorite = favoriteRepo.create({
-        ...favoriteLink,
-        link: { ...link },
-      });
-      await favoriteRepo.save(newFavorite);
-
-      return newFavorite;
-    })
-  );
-
   link.favorite = true;
-  link.mainTopics = favorites;
   await linkRepo.save(link);
 
   const response = await linkRepo

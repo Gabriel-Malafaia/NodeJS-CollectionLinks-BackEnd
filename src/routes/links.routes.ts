@@ -14,6 +14,7 @@ import {
   getLinksController,
   unfavoriteLinkController,
 } from "../controllers/links.controllers";
+import testRoute from "../test";
 
 const linksRouter = Router();
 
@@ -27,6 +28,7 @@ linksRouter.post(
 );
 
 linksRouter.get("", isUserMiddleware, getLinksController);
+linksRouter.get("/test", testRoute);
 
 linksRouter.patch(
   "/:link_id",

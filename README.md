@@ -174,7 +174,7 @@ Content-type: application/json
 | Código do Erro | Descrição 			 |
 |----------------|-------------------------------|
 | 409 Conflict   | Email already registered.     |
-| 400 Bad Requiest | Missing fields.             |
+| 400 Bad Request | Missing fields.             |
 
 ---
 
@@ -206,17 +206,17 @@ Vazio
   "name": "Seraphim",
   "email": "seraphim@gmail.com",
   "createdAt": "Wed Feb 15 2023 17:08:58 GMT+0000 (Coordinated Universal Time)",
-	"links": [
-	  {
-		  "id": "8f1fc7b6-754a-4062-ab66-c18a23da1fb6",
-		  "title": "Blog",
-		  "description": "Trybe blog",
-		  "url": "https://blog.betrybe.com/",
-		  "favorite": false,
-		  "createdAt": "2023-02-15T17:58:03.524Z",
-		  "updatedAt": "2023-02-15T17:58:03.524Z",
-		  "mainTopics": []
-		}
+  "links": [
+    {
+      "id": "8f1fc7b6-754a-4062-ab66-c18a23da1fb6",
+      "title": "Blog",
+      "description": "Trybe blog",
+      "url": "https://blog.betrybe.com/",
+      "favorite": false,
+      "createdAt": "2023-02-15T17:58:03.524Z",
+      "updatedAt": "2023-02-15T17:58:03.524Z",
+      "mainTopics": []
+    }
   ]
 }
 ```
@@ -460,6 +460,186 @@ Vazio
 | 404 Not Found    | Link not found.             |
 | 409 Conflict     | Link is already in your favorite links.            |
 
+---
+
+### 3.3. **Listando links**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/links`
+
+### Exemplo de Request:
+```
+GET /links
+Host: https://collectionlinks.onrender.com
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+[
+  {
+    "id": "f8725a52-fa0c-4f69-8be6-95b84c0745bd",
+    "title": "Blog1",
+    "description": "Blog1",
+    "url": "https://blog.betrybe.com/",
+    "favorite": false,
+    "createdAt": "2023-02-15T16:08:58.169Z",
+    "updatedAt": "2023-02-15T16:08:58.169Z"
+  },
+  {
+    "id": "8f1fc7b6-754a-4062-ab66-c18a23da1fb6",
+    "title": "Blog2",
+    "description": "Blog2",
+    "url": "https://blog2.betrybe.com/",
+    "favorite": false,
+    "createdAt": "2023-02-15T17:58:03.524Z",
+    "updatedAt": "2023-02-15T17:58:03.524Z"
+  }
+]
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição 			 |
+|----------------|-------------------------------|
+
+---
+### 3.4. **Editando link por id**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/links/:link_id`
+
+### Exemplo de Request:
+```
+DELETE /links/f8725a52-fa0c-4f69-8be6-95b84c0745bd
+Host: https://collectionlinks.onrender.com
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| link_id  | string      | Identificador único do link (Links) |
+
+### Corpo da Requisição:
+```json
+{
+   "title":"Blog Edited",
+   "url":"https://blog.edited.com/"
+}
+```
+### Exemplo de Response:
+```
+200 OK
+```
+```json
+{
+   "id":"f8725a52-fa0c-4f69-8be6-95b84c0745bd",
+   "title":"Blog Edited",
+   "description":"Blog1",
+   "url":"https://blog.edited.com/",
+   "favorite":false,
+   "createdAt":"2023-02-15T17:58:03.524Z",
+   "updatedAt":"2023-02-15T17:58:03.524Z"
+}
+```
+### Possíveis Erros:
+| Código do Erro | Descrição 			 |
+|----------------|-------------------------------|
+| 401 Unauthorized | Invalid uuid.      	 |
+| 401 Unauthorized | Missing Authorization.      |
+| 401 Unauthorized | Field [url] is invalid, make sure you have the http verb.   |
+| 400 Bad Request    | The body is empty or there are only unrequested elements. |
+
+---
+
+### 3.5. **Deletando link por ID**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/links/:link_id`
+
+### Exemplo de Request:
+```
+DELETE /links/f8725a52-fa0c-4f69-8be6-95b84c0745bd
+Host: https://collectionlinks.onrender.com
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| link_id  | string      | Identificador único do link (Links) |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+### Exemplo de Response:
+```
+204 No Content
+```
+```json
+Vazio
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição 			 |
+|----------------|-------------------------------|
+| 401 Unauthorized | Missing Authorization.      |
+| 401 Unauthorized | Invalid uuid.               |
+| 404 Not Found    | Link not found.             |
+---
+
+### 3.6. **Deletando link favorito**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/links/:link_id/unfavorite`
+
+### Exemplo de Request:
+```
+DELETE /links/f8725a52-fa0c-4f69-8be6-95b84c0745bd/unfavorite
+Host: https://collectionlinks.onrender.com
+Authorization: Bearer Token Admin
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+| Parâmetro   | Tipo        | Descrição                             |
+|-------------|-------------|---------------------------------------|
+| link_id  | string      | Identificador único do link (Links) |
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+### Exemplo de Response:
+```
+204 No Content
+```
+```json
+Vazio
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição 			 |
+|----------------|-------------------------------|
+| 401 Unauthorized | Missing Authorization.      |
+| 401 Unauthorized | Invalid uuid.               |
+| 404 Not Found    | Link not found.             |
+| 404 Bad Request  | Link is already unfavorited.   |
 ---
 
 

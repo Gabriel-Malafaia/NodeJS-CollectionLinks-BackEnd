@@ -1,12 +1,15 @@
+import chromium from "chrome-aws-lambda";
 import { Request, Response } from "express";
 import puppeteer from "puppeteer";
 
 const testRoute = async (req: Request, res: Response) => {
   const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    headless: true,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
     ignoreHTTPSErrors: true,
   });
+
   const page = await browser.newPage();
   await page.goto("https://blog.betrybe.com/");
 

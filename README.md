@@ -1,5 +1,8 @@
 # CollectionLinks
 
+- Front-end: https://github.com/Gabriel-Malafaia/NodeJS-CollectionLinks-FrontEnd
+- Back-end: https://github.com/Gabriel-Malafaia/NodeJS-CollectionLinks-BackEnd
+
 
 A API "Collection Links" foi desenvolvida com o propósito de fornecer aos usuários a possibilidade de gerenciar seus links de blogs favoritos de maneira fácil e eficiente. Com as funcionalidades de CRUD, os usuários podem cadastrar, editar e excluir links, além de adicioná-los aos seus favoritos. Além disso, implementamos um sistema de scraping, que permite buscar automaticamente os 3 principais artigos relacionados a cada link adicionado como favorito, tornando a experiência dos usuários ainda mais completa e satisfatória.
 

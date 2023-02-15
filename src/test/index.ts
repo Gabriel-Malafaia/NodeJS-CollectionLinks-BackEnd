@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import puppeteer from "puppeteer";
 
 const testRoute = async (req: Request, res: Response) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto("https://blog.betrybe.com/");
 
@@ -19,7 +21,7 @@ const testRoute = async (req: Request, res: Response) => {
     return result;
   });
 
-  return res.status(200).json(pageData)
+  return res.status(200).json(pageData);
 };
 
 export default testRoute;

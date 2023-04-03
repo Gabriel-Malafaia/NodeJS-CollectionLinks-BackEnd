@@ -3,8 +3,8 @@
     "start": "node dist/server.js",
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "typeorm-migration": "yarn typeorm migration:run --dataSource=src/data-source.ts",
-    "vercel-build": "yarn build && yarn typeorm-migration"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "vercel-build": "yarn typeorm migration:run -d src/data-source.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

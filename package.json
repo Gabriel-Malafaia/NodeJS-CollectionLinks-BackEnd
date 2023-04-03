@@ -1,8 +1,8 @@
 {
   "scripts": {
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
-    "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
     "vercel-build": "yarn typeorm migration:run -d src/data-source.ts"
   },
